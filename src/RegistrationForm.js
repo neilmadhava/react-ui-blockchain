@@ -9,13 +9,13 @@ class RegistrationForm extends Component {
             users: "", 
             ccd: "", 
             mcd: "",
-            airportToken: "",
-            usersToken: "",
-            ccdToken: "",
-            mcdToken: ""
+            tokens: {}
         };
+        this.tokensArr = {};
+        this.orgs = ["airport", "users", "ccd", "mcd"];
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);    
+        this.handleRegister = this.handleRegister.bind(this);
+        this.handleSetup = this.handleSetup.bind(this);  
     }
 
     handleChange(e){
@@ -24,31 +24,108 @@ class RegistrationForm extends Component {
         })
     }
 
-    async handleSubmit(e){
+    async handleRegister(e){
         e.preventDefault();
-        let orgs = ["airport", "users", "ccd", "mcd"];
-        let tokens = [];
-        orgs.forEach(async (org) => {
+        this.orgs.forEach(async (org) => {
                 let response = await axios.post('http://localhost:4000/users', {
                 username: `${this.state[org]}`,
                 orgName: org
             });
             console.log(response);
-            tokens.push(response.data.token);
+            this.tokensArr[org]=response.data.token;
         });
+
+        console.log(this.tokensArr);
+    }
+
+    async joinChannel(instance){
+        for(let i=0; i<this.orgs.length; i++){
+            let response = await instance.post('/channels/mychannel/peers', {
+                'peers': [`peer0.${this.orgs[i]}.example.com`,`peer1.${this.orgs[i]}.example.com`]
+            }, {
+                headers: {
+                    Authorization: `Bearer ${this.tokensArr[this.orgs[i]]}`
+                }
+            });
+            console.log(response);
+        }
+        return true;
+    }
+
+    async updateAnchorPeers(instance){
+        for(let i=0; i<this.orgs.length; i++){
+            let response = await instance.post('/channels/mychannel/anchorpeers', {
+                'configUpdatePath':`../../channel-artifacts/${this.orgs[i]}anchors.tx`
+            }, {
+                headers: {
+                    Authorization: `Bearer ${this.tokensArr[this.orgs[i]]}`
+                }
+            });
+            console.log(response);
+        }
+        return true;
+    }
+
+    async installChaincode(instance){
+        for(let i=0; i<this.orgs.length; i++){
+            let response = await instance.post('/chaincodes', {
+                'peers': [`peer0.${this.orgs[i]}.example.com`,`peer1.${this.orgs[i]}.example.com`],
+                'chaincodeName':'newv3',
+                'chaincodePath':'./chaincode/chain_person',
+                'chaincodeType': 'node',
+                'chaincodeVersion':'1.0'
+            }, {
+                headers: {
+                    Authorization: `Bearer ${this.tokensArr[this.orgs[i]]}`
+                }
+            });
+            console.log(response);
+        }
+        return true;
+    }
+
+    async handleSetup(e){
+        e.preventDefault();
         this.setState({
-            airportToken: tokens[0],
-            usersToken: tokens[1],
-            ccdToken: tokens[2],
-            mcdToken: tokens[3]
+            tokens: this.tokensArr
         });
+
+        // CREATE Axios instance with suitable configurations
+        const instance = axios.create({
+            baseURL: 'http://localhost:4000',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.tokensArr['airport']}`
+            }
+        });
+
+        // Creating Channel
+        let response = await instance.post('/channels', {
+            "channelName":"mychannel",
+	        "channelConfigPath":"../../channel-artifacts/channel.tx"
+        });
+        console.log(response);
+
+        // Join peers to channel
+        let result = await this.joinChannel(instance);
+        console.log(result);
+
+        //Update anchor peers
+        result = await this.updateAnchorPeers(instance);
+        console.log(result);
+
+        // Install chaincode on all organizations
+        result = await this.installChaincode(instance);
+        console.log(result);
+
+                
     }
 
     render(){
         return (
             <div>
                 <h1>Registration Form</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleRegister}>
                     <label htmlFor="airport">Airport</label>
                     <input
                         id="airport"
@@ -82,6 +159,7 @@ class RegistrationForm extends Component {
                         onChange={this.handleChange} /><br/>
                     <button>Submit</button>
                 </form>
+                <button onClick={this.handleSetup}>Setup Network</button>
             </div>
         );
     }
