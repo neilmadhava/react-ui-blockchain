@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import './AppForm.css';
+import './Loaders.css';
 import axios from 'axios';
 
 class AppForm extends Component {
+    static defaultProps = {
+        token: ""
+    };
+
     constructor(props){
         super(props);
         this.state = {
@@ -20,7 +25,7 @@ class AppForm extends Component {
             isLoading: false
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);    
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     handleChange(evt){
@@ -34,25 +39,24 @@ class AppForm extends Component {
             isLoading: true
         });
 
-        // CREATE Axios instance with suitable configurations
-        // const instance = axios.create({
-        //     baseURL: 'http://localhost:4000',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${
-        //             this.props.token
-        //         }`
-        //     }
-        // });
+        const instance = axios.create({
+            baseURL: 'http://localhost:4000',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${
+                    this.props.token
+                }`
+            }
+        });
 
-        // let response = await instance.post('/channels/mychannel/chaincodes/newv3', {
-        //     'peers': ['peer0.airport.example.com'],
-        //     'fcn':'initPerson',
-        //     'args':[`${this.state.uid}`,`${this.state.srcStation}`,`${this.state.name}`,`${this.state.depDate}`,`${this.state.phNo}`, `${this.state.creditCard}`, `${this.state.aadhar}`, `${this.state.emailAddr}`, `${this.state.consent}`]
-        // });
-        // console.log(response);
-        setTimeout(() => this.setState({
-            content: "testing",
+        let response = await instance.post('/channels/mychannel/chaincodes/newv3', {
+            'peers': ['peer0.airport.example.com'],
+            'fcn':'initPerson',
+            'args':[`${this.state.uid}`,`${this.state.srcStation}`,`${this.state.name}`,`${this.state.depDate}`,`${this.state.phNo}`, `${this.state.creditCard}`, `${this.state.aadhar}`, `${this.state.emailAddr}`, `${this.state.consent}`]
+        });
+        console.log(response);
+        this.setState({
+            content: "response.data",
             isToggled:true,
             isLoading: false,
             uid: "",
@@ -64,7 +68,7 @@ class AppForm extends Component {
             aadhar: "",
             emailAddr: "",
             consent: "high"
-        }), 5000);     
+        });     
     }
 
     render() {
@@ -188,7 +192,7 @@ class AppForm extends Component {
                             </div>
                         </div>
                         {/* <div class="loader-39"></div> */}
-                        {this.state.isLoading ?  <div class="loader-39" /> : <button className="button" type="submit">Apply Now</button>}
+                        {this.state.isLoading ?  <div className="loader-39" /> : <button className="button" type="submit">Apply Now</button>}
                         
                     </form>
                 </div>

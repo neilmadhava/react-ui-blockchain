@@ -1,22 +1,58 @@
 import React, {Component} from 'react';
 import './DeleteUser.css';
+import './Loaders.css';
+import axios from 'axios';
 
 class DeleteUser extends Component {
+    static defaultProps = {
+        token: ""
+    }
+
     constructor(props){
         super(props);
         this.state = {
-            content: "Thank to pop me out of that button, but now i'm done so you can close this window.",
-            isToggled: false
-        }
+            content: "",
+            uid: "",
+            isToggled: false,
+            isLoading: false
+        };
+    
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e){
+    handleChange(evt){
+        this.setState({[evt.target.name]: evt.target.value})
+    }
+
+    async handleSubmit(e){
         e.preventDefault();
-        setTimeout(()=>this.setState({
+        this.setState({
+            isLoading: true
+        });
+
+        const instance = axios.create({
+            baseURL: 'http://localhost:4000',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${
+                    this.props.token
+                }`
+            }
+        });
+
+        let response = await instance.post('/channels/mychannel/chaincodes/newv3', {
+            'peers': ['peer0.airport.example.com'],
+            'fcn':'deletePerson',
+            'args':[`${this.state.uid}`]
+        });
+        console.log(response);
+
+        this.setState({
             content: "Testing",
-            isToggled:true
-        }), 1000);
+            isToggled:true,
+            isLoading: false
+        });
 
     }
 
@@ -32,14 +68,18 @@ class DeleteUser extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <div className="input-group">
-                                <label for="userID">User ID
+                                <label for="uid">User ID
                                     <span>*</span>
                                 </label>
-                                <input type="text" name="userID" value=""/>
+                                <input 
+                                    type="text" 
+                                    name="uid" 
+                                    value={this.state.uid}
+                                    onChange={this.handleChange}/>
                             </div>
                         </div>
 
-                        <button className="button" type="submit">Delete Now</button>
+                        {this.state.isLoading ?  <div className="loader-39" /> : <button className="button" type="submit">Delete Now</button>}
                     </form>
                 </div>
                 <div id="popup1" className={this.state.isToggled ? "overlay toggled" : "overlay"}>

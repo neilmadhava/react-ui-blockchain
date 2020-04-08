@@ -13,20 +13,20 @@ class OrgsUI extends Component {
             <div className="OrgsUI">
                 <div className="area">
                     {
-                    this.props.match.params.org === "airport" && <Airport />
-                    // && <Airport token={this.props.location.state['airport']} />
+                    this.props.match.params.org === "airport"
+                    && <Airport token={this.props.location.state['airport']} />
                 }
                     {
-                    this.props.match.params.org === "users" && <Users/>
-                    // && <Users token={this.props.location.state['users']} />
+                    this.props.match.params.org === "users"
+                    && <Users token={this.props.location.state['users']} />
                 }
                     {
-                    this.props.match.params.org === "ccd"&& <CCD/>
-                    // && <CCD token={this.props.location.state['ccd']} />
+                    this.props.match.params.org === "ccd"
+                    && <CCD token={this.props.location.state['ccd']} />
                 }
                     {
-                    this.props.match.params.org === "mcd" && <MCD/>
-                    // && <MCD token={this.props.location.state['mcd']} />
+                    this.props.match.params.org === "mcd"
+                    && <MCD token={this.props.location.state['mcd']} />
                 } </div>
                 <nav className="main-menu">
                     <ul>

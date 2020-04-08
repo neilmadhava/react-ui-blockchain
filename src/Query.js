@@ -1,21 +1,47 @@
 import React, {Component} from 'react';
-import './Query.css';
 import axios from 'axios';
+import './Query.css';
+import './Loaders.css';
+
 
 class Query extends Component {
+    static defaultProps = {
+        token: "",
+        org: "airport"
+    }
+
     constructor(props){
         super(props);
         this.state = {
-            content: "Thank to pop me out of that button, but now i'm done so you can close this window.",
-            isToggled: false
-        }
+            content: "",
+            uid: "",
+            isToggled: false,
+            isLoading: false
+        };
+
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(evt){
+        this.setState({[evt.target.name]: evt.target.value})
     }
 
     async handleSubmit(e){
         e.preventDefault();
 
-        // CREATE Axios instance with suitable configurations
+        this.setState({
+            isLoading: true
+        });
+
+        let url;
+        if(this.props.org === "airport") {
+            url = `/channels/mychannel/chaincodes/newv3?peer=peer0.airport.example.com&fcn=readPrivatePerson&args=%5B%22${this.state.uid}%22%5D`;
+        } 
+        if (this.props.org === "ccd" || this.props.org === "mcd"){
+            url = `/channels/mychannel/chaincodes/newv3?peer=peer0.airport.example.com&fcn=readPerson&args=%5B%22${this.state.uid}%22%2C%20%22${this.props.org}%22%5D`;
+        }
+
         const instance = axios.create({
             baseURL: 'http://localhost:4000',
             headers: {
@@ -26,16 +52,13 @@ class Query extends Component {
             }
         });
 
-        let response = await instance.post('/channels/mychannel/chaincodes/newv3', {
-            'peers': ['peer0.airport.example.com'],
-            'fcn':'initPerson',
-            'args':[`${this.state.uid}`,`${this.state.srcStation}`,`${this.state.name}`,`${this.state.depDate}`,`${this.state.phNo}`, `${this.state.creditCard}`, `${this.state.aadhar}`, `${this.state.emailAddr}`, `${this.state.consent}`]
-        });
+        let response = await instance.get(url);
         console.log(response);
 
         this.setState({
-            content: response.data,
-            isToggled:true
+            content: "response.data",
+            isToggled:true,
+            isLoading:false
         });
     }
 
@@ -55,12 +78,15 @@ class Query extends Component {
                                 <label htmlFor="uid">User ID
                                     <span>*</span>
                                 </label>
-                                <input type="text" name="uid" value=""/>
+                                <input 
+                                    type="text" 
+                                    name="uid" 
+                                    value={this.state.uid}
+                                    onChange={this.handleChange}/>
                             </div>
                         </div>
 
-                        {/* <a className="button" href="#popup1">Search Now</a> */}
-                        <button className="button" type="submit">Search Now</button>
+                        {this.state.isLoading ?  <div className="loader-39" /> : <button className="button" type="submit">Search Now</button>}
                     </form>
                 </div>
                 <div id="popup1" className={this.state.isToggled ? "overlay toggled" : "overlay"}>

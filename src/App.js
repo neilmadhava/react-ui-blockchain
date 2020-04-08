@@ -40,7 +40,7 @@ class App extends Component {
           path="/orgs/:org" 
           render={routeProps => 
             <OrgsUI {...routeProps} 
-            // token={`${routeProps.location.state[routeProps.match.params.org]}`} 
+            token={`${routeProps.location.state[routeProps.match.params.org]}`} 
           />} 
         />
       </Switch>

@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import './RegistrationForm.css';
+import './Loaders.css'
 
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: false,
             airport: "",
             users: "",
             ccd: "",
@@ -26,6 +28,9 @@ class RegistrationForm extends Component {
 
     async handleRegister(e) {
         e.preventDefault();
+        this.setState({
+            isLoading: true
+        });
 
         for (let i = 0; i < this.orgs.length; i++) {
             let response = await axios.post('http://localhost:4000/users', {
@@ -39,8 +44,70 @@ class RegistrationForm extends Component {
         }
 
         console.log(this.tokensObj);
-        this.setState({tokens: this.tokensObj})
+        this.setState({
+            tokens: this.tokensObj,
+            isLoading: false
+        })
         this.props.addTokens(this.tokensObj);
+    }
+
+    async handleSetup(e) {
+        e.preventDefault();
+
+        this.setState({
+            isLoading: true
+        });
+
+        // CREATE Axios instance with suitable configurations
+        const instance = axios.create({
+            baseURL: 'http://localhost:4000',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${
+                    this.tokensObj['airport']
+                }`
+            }
+        });
+
+        // Creating Channel
+        let response = await instance.post('/channels', {
+            "channelName": "mychannel",
+            "channelConfigPath": "../../channel-artifacts/channel.tx"
+        });
+        console.log(response);
+
+        // Join peers to channel
+        let result = await this.joinChannel(instance);
+        console.log(result);
+
+        // Update anchor peers
+        result = await this.updateAnchorPeers(instance);
+        console.log(result);
+
+        // Install chaincode on all organizations
+        result = await this.installChaincode(instance);
+        console.log(result);
+
+        // Instantiating chaincode on channel
+        response = await instance.post('/channels/mychannel/chaincodes', {
+            'peers': ['peer0.airport.example.com'],
+            'chaincodeName': 'newv3',
+            'chaincodeVersion': '1.0',
+            'chaincodeType': 'node',
+            'args': ['init'],
+            'collectionsConfig': './chaincode/chain_person/collections_config.json'
+        }, {
+            header: {
+                Authorization: `Bearer ${
+                    this.tokensObj['airport']
+                }`
+            }
+        });
+        console.log(response);
+        this.props.history.push({
+            pathname: '/orgs',
+            state: this.state.tokens
+          });
     }
 
     async joinChannel(instance) {
@@ -95,61 +162,6 @@ class RegistrationForm extends Component {
             console.log(response);
         }
         return true;
-    }
-
-    async handleSetup(e) {
-        e.preventDefault();
-
-        // CREATE Axios instance with suitable configurations
-        const instance = axios.create({
-            baseURL: 'http://localhost:4000',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${
-                    this.tokensObj['airport']
-                }`
-            }
-        });
-
-        // Creating Channel
-        let response = await instance.post('/channels', {
-            "channelName": "mychannel",
-            "channelConfigPath": "../../channel-artifacts/channel.tx"
-        });
-        console.log(response);
-
-        // Join peers to channel
-        let result = await this.joinChannel(instance);
-        console.log(result);
-
-        // Update anchor peers
-        result = await this.updateAnchorPeers(instance);
-        console.log(result);
-
-        // Install chaincode on all organizations
-        result = await this.installChaincode(instance);
-        console.log(result);
-
-        // Instantiating chaincode on channel
-        response = await instance.post('/channels/mychannel/chaincodes', {
-            'peers': ['peer0.airport.example.com'],
-            'chaincodeName': 'newv3',
-            'chaincodeVersion': '1.0',
-            'chaincodeType': 'node',
-            'args': ['init'],
-            'collectionsConfig': './chaincode/chain_person/collections_config.json'
-        }, {
-            header: {
-                Authorization: `Bearer ${
-                    this.tokensObj['airport']
-                }`
-            }
-        });
-        console.log(response);
-        this.props.history.push({
-            pathname: '/orgs',
-            state: this.state.tokens
-          });
     }
 
     handleShit(){
@@ -208,7 +220,8 @@ class RegistrationForm extends Component {
                                     onChange={this.handleChange}/>
                             </div>
                         </div>
-                        <button className="submit" type="submit">Register Now</button>
+                        {this.state.isLoading ?  <div className="loader-39" /> : <button className="submit" type="submit">Register Now</button>}
+                        
                     </form>
                 </div>
             </div>
@@ -221,7 +234,7 @@ class RegistrationForm extends Component {
                         <h1>Set Up Network</h1>
                     </div>
                     <form onSubmit={this.handleSetup}>
-                        <button className="submit" type="submit">Set Up Network</button>
+                        {this.state.isLoading ?  <div className="loader-39" /> : <button className="submit" type="submit">Set Up Network</button>}
                     </form>
                 </div>
             </div>

@@ -160,7 +160,7 @@
   visibility: hidden;
   opacity: 0;
 }
-.UpdateConsent .overlay.togled {
+.UpdateConsent .overlay.toggled {
   visibility: visible;
   opacity: 1;
 }
@@ -192,6 +192,7 @@
 }
 .UpdateConsent .popup .close:hover {
   color: rgb(255, 0, 0);
+  cursor: pointer;
 }
 .UpdateConsent .popup .content {
   max-height: 30%;
