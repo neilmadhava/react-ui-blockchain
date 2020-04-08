@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Query from './Query';
 
-class Airport extends Component {
+class MCD extends Component {
     static defaultProps = {
         token: ""
     }
@@ -23,8 +23,8 @@ class Airport extends Component {
     render(){
         const buttonStyle = "btn btn-outline-primary";
         return (
-            <div className="Airport">
-                <h1>Airport Dashboard</h1>
+            <div className="MCD">
+                <h1>McDonalds Dashboard</h1>
                 <nav>
                     <button 
                         type="button" 
@@ -34,7 +34,6 @@ class Airport extends Component {
                             buttonStyle + " active" : buttonStyle
                         }
                     >Query Private Data</button>
-
                     <button 
                         type="button" 
                         onClick={() => this.handleClick("querypub")}
@@ -43,34 +42,13 @@ class Airport extends Component {
                             buttonStyle + " active" : buttonStyle
                         }
                     >Query Public Data</button>
-
-                    <button 
-                        type="button" 
-                        onClick={() => this.handleClick("queryall")}
-                        className={
-                            this.state.buttonActive==="queryall" ?
-                            buttonStyle + " active" : buttonStyle
-                        }
-                    >Query All</button>
-
-                    <button 
-                        type="button" 
-                        onClick={() => this.handleClick("audit")}
-                        className={
-                            this.state.buttonActive==="audit" ?
-                            buttonStyle + " active" : buttonStyle
-                        }
-                    >Audit User</button>
                 </nav>
 
                 {this.state.buttonActive==="querypvt" && <Query />}
                 {this.state.buttonActive==="querypub" && <Query />}
-                {this.state.buttonActive==="queryall" && <Query />}
-                {this.state.buttonActive==="audit" && <Query />}
-
             </div>
         );
     }
 }
 
-export default Airport;
+export default MCD;

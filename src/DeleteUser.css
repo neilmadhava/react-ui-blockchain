@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+.fa-check {
+  color: #27ae60;
+  font-size: 24px;
+}
+
+.DeleteUser {
+  width: 100%;
+  margin: 1rem auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.DeleteUser .form-container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  box-shadow: 0px 10px 100px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  margin: 0 auto;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  -webkit-transition: -webkit-transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1);
+  transition: -webkit-transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1);
+  transition: transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1);
+  transition: transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1), -webkit-transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1);
+}
+.DeleteUser .form-container.applied {
+  -webkit-transform: translate(0, -200%);
+          transform: translate(0, -200%);
+}
+.DeleteUser .form-container .header {
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: white;
+  width: 100%;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.DeleteUser .form-container .header h1 {
+  color: #3498db;
+  font-size: 22px;
+  font-weight: bolder;
+}
+.DeleteUser .form-container .header p {
+  color: #555555;
+}
+.DeleteUser .form-container form {
+  width: 100%;
+  position: relative;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+.DeleteUser .form-container form .form-group {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 1rem 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row;
+  flex-wrap: no-wrap;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  text-align: left;
+}
+.DeleteUser .form-container form .form-group:first-child {
+  padding-top: 0;
+}
+.DeleteUser .form-container form .form-group .input-group {
+  /* flex-basis: 50%; */
+  width: 100%;
+  box-sizing: border-box;
+}
+.DeleteUser .form-container form .form-group .input-group:first-child {
+  padding-right: 1rem;
+}
+.DeleteUser .form-container form .form-group .input-group:last-child {
+  padding-left: 1rem;
+}
+.DeleteUser .form-container form .form-group .input-group label {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  position: relative;
+  color: #555555;
+  font-weight: bold;
+  font-size: 14px;
+}
+.DeleteUser .form-container form .form-group .input-group label span {
+  color: #e74c3c;
+}
+.DeleteUser .form-container form .form-group .input-group input {
+  border: none;
+  background: none;
+  background-color: white;
+  width: 100%;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 0.7rem 1rem;
+  color: #5faee3;
+  font-weight: bolder;
+  font-size: 16px;
+  border: 2px white solid;
+  -webkit-transition: border 200ms linear;
+  transition: border 200ms linear;
+}
+.DeleteUser .form-container form .form-group .input-group input.error {
+  border: 2px #e74c3c solid;
+}
+.DeleteUser .form-container form .form-group .input-group input.success {
+  border: 2px #27ae60 solid;
+}
+.DeleteUser .form-container form .form-group .input-group input:focus {
+  outline: none;
+}
+/* .DeleteUser .form-container form button {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  border-radius: 30px;
+  background-color: #3498db;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 1rem auto 0 auto;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition: all 400ms linear;
+  transition: all 400ms linear;
+}
+.DeleteUser .form-container form button:hover {
+  background-color: #217dbb;
+}
+.DeleteUser .form-container form button.disabled {
+  cursor: not-allowed;
+  background-color: #b6daf2;
+}
+.DeleteUser .form-container form button.disabled:hover {
+  background-color: #b6daf2;
+} */
+
+.DeleteUser .overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.DeleteUser .overlay.toggled {
+  visibility: visible;
+  opacity: 1;
+}
+
+.DeleteUser .popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.DeleteUser .popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.DeleteUser .popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.DeleteUser .popup .close:hover {
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+}
+.DeleteUser .popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+.DeleteUser .button {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  border-radius: 30px;
+  background-color: #ff3b3b;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 1rem auto 0 auto;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition: all 400ms linear;
+  transition: all 400ms linear;
+}
+.DeleteUser .button:hover {
+  background-color: red;
+}
+
+@media screen and (max-width: 700px){
+  .DeleteUser .popup{
+    width: 70%;
+  }
+}
