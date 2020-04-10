@@ -49,7 +49,7 @@ class DeleteUser extends Component {
         console.log(response);
 
         this.setState({
-            content: "Testing",
+            content: response.data.message,
             isToggled:true,
             isLoading: false
         });
@@ -84,7 +84,7 @@ class DeleteUser extends Component {
                 </div>
                 <div id="popup1" className={this.state.isToggled ? "overlay toggled" : "overlay"}>
                     <div className="popup">
-                        <h2>Here i am</h2>
+                        <h2>Result</h2>
                         <span className="close" onClick={() => this.setState({isToggled: false})}>&times;</span>
                         <div className="content">
                             {this.state.content}

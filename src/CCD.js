@@ -44,8 +44,8 @@ class CCD extends Component {
                     >Query Public Data</button>
                 </nav>
 
-                {this.state.buttonActive==="querypvt" && <Query />}
-                {this.state.buttonActive==="querypub" && <Query />}
+                {this.state.buttonActive==="querypvt" && <Query token={this.props.token} command="querypvt" org="ccd" />}
+                {this.state.buttonActive==="querypub" && <Query token={this.props.token} command="querypub" org="ccd" />}
             </div>
         );
     }

@@ -120,9 +120,18 @@ outline:0;
 margin:0;
 padding:0;
 }
-.main-menu li:hover>NavLink,nav.main-menu li.active>NavLink,.dropdown-menu>li>NavLink:hover,.dropdown-menu>li>NavLink:focus,.dropdown-menu>.active>NavLink,.dropdown-menu>.active>NavLink:hover,.dropdown-menu>.active>NavLink:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover NavLink,.dashboard-page nav.dashboard-menu ul li.active NavLink {
+.main-menu li:hover>NavLink,
+nav.main-menu li.active>NavLink,
+.dropdown-menu>li>NavLink:hover,
+.dropdown-menu>li>NavLink:focus,
+.dropdown-menu>.active>NavLink,
+.dropdown-menu>.active>NavLink:hover,
+.dropdown-menu>.active>NavLink:focus,
+.no-touch .dashboard-page nav.dashboard-menu ul li:hover NavLink,
+.dashboard-page nav.dashboard-menu ul li.active NavLink {
 color:#fff;
 background-color:#5fa2db;
+text-decoration: none;
 }
 .area {
 float: left;
@@ -142,4 +151,8 @@ height: 100%;
 
 .OrgsUI {
     background-color: #e2e2e2;
+}
+
+.OrgsUI .activeOrg .fa {
+  color: green;
 }

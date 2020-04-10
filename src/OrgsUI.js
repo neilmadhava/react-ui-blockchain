@@ -8,30 +8,37 @@ import './OrgsUI.css';
 // import './OrgsUI-test.css';
 
 class OrgsUI extends Component {
+    static defaultProps = {
+        tokens: JSON.parse(window.localStorage.getItem("tokens"))
+    }
     render() {
         return (
             <div className="OrgsUI">
                 <div className="area">
                     {
                     this.props.match.params.org === "airport"
-                    && <Airport token={this.props.location.state['airport']} />
+                    // && <Airport token={this.props.location.state['airport']} />
+                    && <Airport token={this.props.tokens['airport']} />
                 }
                     {
                     this.props.match.params.org === "users"
-                    && <Users token={this.props.location.state['users']} />
+                    // && <Users token={this.props.location.state['users']} />
+                    && <Users token={this.props.tokens['users']} />
                 }
                     {
                     this.props.match.params.org === "ccd"
-                    && <CCD token={this.props.location.state['ccd']} />
+                    // && <CCD token={this.props.location.state['ccd']} 
+                    && <CCD token={this.props.tokens['ccd']} />
                 }
                     {
                     this.props.match.params.org === "mcd"
-                    && <MCD token={this.props.location.state['mcd']} />
+                    // && <MCD token={this.props.location.state['mcd']} 
+                    && <MCD token={this.props.tokens['mcd']} />
                 } </div>
                 <nav className="main-menu">
                     <ul>
                         <li>
-                            <NavLink to="/">
+                            <NavLink exact to="/" activeClassName="activeOrg">
                                 <i className="fa fa-home fa-2x"></i>
                                 <span className="nav-text">
                                     Dashboard
@@ -40,7 +47,7 @@ class OrgsUI extends Component {
 
                         </li>
                         <li className="has-subnav">
-                            <NavLink to="/orgs/airport">
+                            <NavLink exact to="/orgs/airport" activeClassName="activeOrg">
                                 <i className="fa fa-plane fa-2x"></i>
                                 <span className="nav-text">
                                     Airport
@@ -49,7 +56,7 @@ class OrgsUI extends Component {
 
                         </li>
                         <li className="has-subnav">
-                            <NavLink to={{pathname:"/orgs/users",state:this.props.location.state}}>
+                            <NavLink exact to="/orgs/users" activeClassName="activeOrg">
                                 <i className="fa fa-user fa-2x"></i>
                                 <span className="nav-text">
                                     Users
@@ -58,7 +65,7 @@ class OrgsUI extends Component {
 
                         </li>
                         <li className="has-subnav">
-                            <NavLink to="/orgs/ccd">
+                            <NavLink exact to="/orgs/ccd" activeClassName="activeOrg">
                                 <i className="fa fa-coffee fa-2x"></i>
                                 <span className="nav-text">
                                     Cafe Coffee Day
@@ -67,7 +74,7 @@ class OrgsUI extends Component {
 
                         </li>
                         <li>
-                            <NavLink to="/orgs/mcd">
+                            <NavLink exact to="/orgs/mcd" activeClassName="activeOrg">
                                 <i className="fa fa-cutlery fa-2x"></i>
                                 <span className="nav-text">
                                     McDonalds

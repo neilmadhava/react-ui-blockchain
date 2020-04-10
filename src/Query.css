@@ -150,7 +150,7 @@
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 50%;
   position: relative;
   transition: all 5s ease-in-out;
 }
@@ -204,4 +204,24 @@
   .Query .popup{
     width: 70%;
   }
+}
+
+.Query table {
+  text-align: left;
+  border: 1px solid black;
+  margin: 20px auto;
+}
+
+.Query table td, 
+.Query table th, 
+.Query table thead
+{
+  padding: 10px;
+  border-width: 0px 1px 1px 0px;
+  border: 1px solid black;
+}
+
+.Query table thead th {
+  background-color: #d6d4d4;
+  text-align: center;
 }

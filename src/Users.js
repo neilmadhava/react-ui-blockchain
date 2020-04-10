@@ -77,7 +77,7 @@ class Users extends Component {
                 {this.state.buttonActive==="delete" && <DeleteUser token={this.props.token} />}
                 {this.state.buttonActive==="update" && <UpdateConsent token={this.props.token} />}
                 {this.state.buttonActive==="revoke" && <RevokeConsent token={this.props.token} />}
-                {this.state.buttonActive==="query" && <Query token={this.props.token} />}
+                {this.state.buttonActive==="query" && <Query token={this.props.token} org="users" />}
 
             </div>
         );

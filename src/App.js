@@ -32,15 +32,19 @@ class App extends Component {
         <Route 
           exact 
           path="/orgs/" 
-          render={routeProps => <OrgsUI {...routeProps} tokens={this.state.tokens} />}
+          render={routeProps => <OrgsUI 
+            {...routeProps} 
+            // tokens={this.state.tokens} 
+          />}
         />
         
         <Route 
           exact 
           path="/orgs/:org" 
           render={routeProps => 
-            <OrgsUI {...routeProps} 
-            token={`${routeProps.location.state[routeProps.match.params.org]}`} 
+            <OrgsUI 
+            {...routeProps} 
+            // token={`${routeProps.location.state[routeProps.match.params.org]}`} 
           />} 
         />
       </Switch>

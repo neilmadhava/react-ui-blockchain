@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Query from './Query';
 
 class Airport extends Component {
-    static defaultProps = {
-        token: ""
-    }
+    // static defaultProps = {
+    //     token: JSON.parse(window.localStorage.getItem("tokens") || "[]")
+    // }
 
     constructor(props){
         super(props);
@@ -63,10 +63,10 @@ class Airport extends Component {
                     >Audit User</button>
                 </nav>
 
-                {this.state.buttonActive==="querypvt" && <Query />}
-                {this.state.buttonActive==="querypub" && <Query />}
-                {this.state.buttonActive==="queryall" && <Query />}
-                {this.state.buttonActive==="audit" && <Query />}
+                {this.state.buttonActive==="querypvt" && <Query token={this.props.token} org="airport" command="querypvt"/>}
+                {this.state.buttonActive==="querypub" && <Query token={this.props.token} org="airport" command="querypub"/>}
+                {this.state.buttonActive==="queryall" && <Query token={this.props.token} org="airport" command="queryall"/>}
+                {this.state.buttonActive==="audit" && <Query token={this.props.token} org="airport" command="audit"/>}
 
             </div>
         );

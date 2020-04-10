@@ -12,14 +12,14 @@ class RegistrationForm extends Component {
             users: "",
             ccd: "",
             mcd: "",
-            tokens: {}
+            tokens: {},
+            message: ""
         };
         this.tokensObj = {};
         this.orgs = ["airport", "users", "ccd", "mcd"];
         this.handleChange = this.handleChange.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
         this.handleSetup = this.handleSetup.bind(this);
-        this.handleShit = this.handleShit.bind(this);
     }
 
     handleChange(e) {
@@ -40,6 +40,9 @@ class RegistrationForm extends Component {
                 orgName: this.orgs[i]
             });
             console.log(response);
+            this.setState(st => {
+                return ({message: st.message + `${response.data.message} ✅\n`})
+            });
             this.tokensObj[this.orgs[i]] = response.data.token;
         }
 
@@ -47,7 +50,9 @@ class RegistrationForm extends Component {
         this.setState({
             tokens: this.tokensObj,
             isLoading: false
-        })
+        }, () =>
+            window.localStorage.setItem("tokens", JSON.stringify(this.state.tokens))
+        );
         this.props.addTokens(this.tokensObj);
     }
 
@@ -55,7 +60,8 @@ class RegistrationForm extends Component {
         e.preventDefault();
 
         this.setState({
-            isLoading: true
+            isLoading: true,
+            message: ""
         });
 
         // CREATE Axios instance with suitable configurations
@@ -75,6 +81,7 @@ class RegistrationForm extends Component {
             "channelConfigPath": "../../channel-artifacts/channel.tx"
         });
         console.log(response);
+        this.setState({message: response.data.message + " ✅\n" });
 
         // Join peers to channel
         let result = await this.joinChannel(instance);
@@ -96,14 +103,12 @@ class RegistrationForm extends Component {
             'chaincodeType': 'node',
             'args': ['init'],
             'collectionsConfig': './chaincode/chain_person/collections_config.json'
-        }, {
-            header: {
-                Authorization: `Bearer ${
-                    this.tokensObj['airport']
-                }`
-            }
         });
         console.log(response);
+        this.setState(st => {
+            return ({message: st.message + `${response.data.message} ✅\n`})
+        });
+        
         this.props.history.push({
             pathname: '/orgs',
             state: this.state.tokens
@@ -124,6 +129,9 @@ class RegistrationForm extends Component {
                 }
             });
             console.log(response);
+            this.setState(st => {
+                return ({message: st.message + `${response.data.message} ✅\n`})
+            });
         }
         return true;
     }
@@ -138,6 +146,9 @@ class RegistrationForm extends Component {
                 }
             });
             console.log(response);
+            this.setState(st => {
+                return ({message: st.message + `${response.data.message} ✅\n`})
+            });
         }
         return true;
     }
@@ -160,15 +171,11 @@ class RegistrationForm extends Component {
                 }
             });
             console.log(response);
+            this.setState(st => {
+                return ({message: st.message + `${response.data.message} ✅\n`})
+            });
         }
         return true;
-    }
-
-    handleShit(){
-        this.props.history.push({
-            pathname: '/orgs',
-            state: this.state.tokens
-          })
     }
 
     render() {
@@ -204,7 +211,7 @@ class RegistrationForm extends Component {
 
                         <div className="form-group">
                             <div className="input-group">
-                                <label htmlFor="airpccdort">CCD
+                                <label htmlFor="ccd">CCD
                                     <span>*</span>
                                 </label>
                                 <input id="ccd" name="ccd" placeholder="CCD User"
@@ -220,7 +227,23 @@ class RegistrationForm extends Component {
                                     onChange={this.handleChange}/>
                             </div>
                         </div>
-                        {this.state.isLoading ?  <div className="loader-39" /> : <button className="submit" type="submit">Register Now</button>}
+                            {
+                                this.state.isLoading ?  
+                                (
+                                    <div>
+                                        <div className="loader-39" />
+                                        <br />
+                                        {
+                                            this.state.message!=="" && this.state.message.split("\n").map( m => {
+                                                return (
+                                                    m!=="" && <div className="message">{m}</div>
+                                                );
+                                            })
+                                        }
+                                    </div>
+                                ) : 
+                                <button className="submit" type="submit">Register Now</button>
+                            }
                         
                     </form>
                 </div>
@@ -234,7 +257,21 @@ class RegistrationForm extends Component {
                         <h1>Set Up Network</h1>
                     </div>
                     <form onSubmit={this.handleSetup}>
-                        {this.state.isLoading ?  <div className="loader-39" /> : <button className="submit" type="submit">Set Up Network</button>}
+                        {
+                            this.state.isLoading ?  
+                            <div>
+                                <div className="loader-39" />
+                                <br />
+                                {
+                                    this.state.message!=="" && this.state.message.split("\n").map( m => {
+                                        return (
+                                            m!=="" && <div className="message">{m}</div>
+                                        );
+                                    })
+                                }
+                            </div> : 
+                            <button className="submit" type="submit">Set Up Network</button>
+                        }
                     </form>
                 </div>
             </div>
