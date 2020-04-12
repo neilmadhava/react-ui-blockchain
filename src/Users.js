@@ -38,7 +38,7 @@ class Users extends Component {
         var menuHeight = $('.main-menu').height();
 
         if (areaHeight > menuHeight) {
-            $('.main-menu').height(areaHeight)
+            $('.main-menu').height(areaHeight + 2)
         } else {
             $('.main-menu').height('100%')
         }

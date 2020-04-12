@@ -14,7 +14,7 @@
 .Query .form-container {
   width: 100%;
   max-width: 600px;
-  background-color: #eeeeee;
+  background-color: #000000d9;
   border-radius: 5px;
   box-shadow: 0 0 20px 5px black;
   box-sizing: border-box;
@@ -33,7 +33,7 @@
 .Query .form-container .header {
   padding: 2rem;
   box-sizing: border-box;
-  background-color: white;
+  background-color: #000000a1;
   width: 100%;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -89,7 +89,7 @@
   margin-bottom: 0.5rem;
   display: inline-block;
   position: relative;
-  color: #555555;
+  color: #dbcbcb;
   font-weight: bold;
   font-size: 14px;
 }
@@ -105,8 +105,8 @@
   border-radius: 3px;
   box-sizing: border-box;
   padding: 0.7rem 1rem;
-  color: #5faee3;
-  font-weight: bolder;
+  color: #462a2a;
+  font-weight: 550;
   font-size: 16px;
   border: 2px white solid;
   -webkit-transition: border 200ms linear;
@@ -150,7 +150,7 @@
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 50%;
+  width: var(--width);
   position: relative;
   transition: all 5s ease-in-out;
 }

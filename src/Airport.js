@@ -32,22 +32,10 @@ class Airport extends Component {
         $('body').css('background-size', 'cover');
     }
 
-    componentDidUpdate(){
-        console.log("Inside component did update");
-        var areaHeight = $('.area').height();
-        var menuHeight = $('.main-menu').height();
-
-        if (areaHeight > menuHeight) {
-            $('.main-menu').height(areaHeight)
-        } else {
-            $('.main-menu').height('100%')
-        }
-    }
-
     render(){
-        const qpvtStyle = "btn btn-outline-primary col mx-2 mt-4 mb-3 p-2";
-        const qpubStyle = "btn btn-outline-primary col mx-2 mt-4 mb-3 p-2";
-        const qallStyle = "btn btn-outline-primary col mx-2 mb-4 mt-3 p-2";
+        const qpvtStyle = "btn btn-outline-warning col mx-2 mt-4 mb-3 p-2";
+        const qpubStyle = "btn btn-outline-success col mx-2 mt-4 mb-3 p-2";
+        const qallStyle = "btn btn-outline-info col mx-2 mb-4 mt-3 p-2";
         const auditStyle = "btn btn-outline-primary col mx-2 mb-4 mt-3 p-2";
 
         return (

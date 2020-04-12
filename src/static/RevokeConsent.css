@@ -14,7 +14,7 @@
 .RevokeConsent .form-container {
   width: 100%;
   max-width: 600px;
-  background-color: #eeeeee;
+  background-color: #000000d9;
   border-radius: 5px;
   box-shadow: 0 0 20px 5px black;
   box-sizing: border-box;
@@ -33,13 +33,13 @@
 .RevokeConsent .form-container .header {
   padding: 2rem;
   box-sizing: border-box;
-  background-color: white;
+  background-color: #000000a1;
   width: 100%;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
 .RevokeConsent .form-container .header h1 {
-  color: #3498db;
+  color: #bfbf08;
   font-size: 22px;
   font-weight: bolder;
 }
@@ -89,7 +89,7 @@
   margin-bottom: 0.5rem;
   display: inline-block;
   position: relative;
-  color: #555555;
+  color: #dbcbcb;
   font-weight: bold;
   font-size: 14px;
 }
@@ -106,8 +106,8 @@
   border-radius: 3px;
   box-sizing: border-box;
   padding: 0.7rem 1rem;
-  color: #5faee3;
-  font-weight: bolder;
+  color: #462a2a;
+  font-weight: 550;
   font-size: 16px;
   border: 2px white solid;
   -webkit-transition: border 200ms linear;
@@ -122,32 +122,6 @@
 .RevokeConsent .form-container form .form-group .input-group input:focus {
   outline: none;
 }
-/* .RevokeConsent .form-container form button {
-  padding: 1rem 1.5rem;
-  background: none;
-  border: none;
-  border-radius: 30px;
-  background-color: #3498db;
-  color: white;
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: bold;
-  margin: 1rem auto 0 auto;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-transition: all 400ms linear;
-  transition: all 400ms linear;
-}
-.RevokeConsent .form-container form button:hover {
-  background-color: #217dbb;
-}
-.RevokeConsent .form-container form button.disabled {
-  cursor: not-allowed;
-  background-color: #b6daf2;
-}
-.RevokeConsent .form-container form button.disabled:hover {
-  background-color: #b6daf2;
-} */
 
 .RevokeConsent .overlay {
   position: fixed;
@@ -170,7 +144,7 @@
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 70%;
+  width: 40%;
   position: relative;
   transition: all 5s ease-in-out;
 }

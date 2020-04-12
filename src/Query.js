@@ -89,8 +89,8 @@ class Query extends Component {
                             {
                                 (this.props.command === "querypub" && "Query Public Data") ||
                                 (this.props.command === "querypvt" && "Query Private Data") ||
-                                (this.props.command === "queryall" && "Query Result") ||
-                                (this.props.command === "audit" && "Audit Result")
+                                (this.props.command === "queryall" && "Query All") ||
+                                (this.props.command === "audit" && "Audit User")
                             }
                         </h1>
                     </div>
@@ -113,8 +113,22 @@ class Query extends Component {
                     </form>
                 </div>
                 <div id="popup1" className={this.state.isToggled ? "overlay toggled" : "overlay"}>
-                    <div className="popup">
-                        <h2>Query Result</h2>
+                    <div 
+                        className="popup" 
+                        style={
+                            (this.props.command === "querypub" && {"--width": "25%"}) ||
+                            (this.props.command === "querypvt" && {"--width": "25%"}) ||
+                            (this.props.command === "queryall" && {"--width": "45%"}) ||
+                            (this.props.command === "audit" && {"--width": "75%"})
+                            }>
+                        <h2>
+                            {
+                                (this.props.command === "querypub" && "Public Data") ||
+                                (this.props.command === "querypvt" && "Private Data") ||
+                                (this.props.command === "queryall" && "Query Result") ||
+                                (this.props.command === "audit" && "User History")
+                            }
+                        </h2>
                         <span className="close" onClick={() => this.setState({isToggled: false, uid: ""})}>&times;</span>
                         <div className="content">
                             {
@@ -190,12 +204,8 @@ class Query extends Component {
                                                 <th style={{backgroundColor: "white", border: "0px"}}></th>
                                                 <th>TxId</th>
                                                 {
-                                                    this.state.content.map(obj => {
-                                                        return (
-                                                            Object.keys(obj.Value).map(key => {
-                                                                return <th key={uuid()}> {key} </th>
-                                                            })
-                                                        )
+                                                    Object.keys(this.state.content[0].Value).map(key => {
+                                                        return <th key={uuid()}> {key} </th>
                                                     })
                                                 }
                                             </tr>
@@ -210,7 +220,7 @@ class Query extends Component {
                                                             {
                                                                 Object.keys(key.Value).map( k => {
                                                                     return (
-                                                                        <td>{key.Value[k]}</td>
+                                                                        <td key={uuid()}>{key.Value[k]}</td>
                                                                     );
                                                                 })
                                                             }

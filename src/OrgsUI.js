@@ -90,10 +90,10 @@ class OrgsUI extends Component {
 
                     <ul className="logout">
                         <li>
-                            <NavLink to="#">
-                                <i className="fa fa-power-off fa-2x"></i>
+                            <NavLink to="http://localhost:8080">
+                                <i className="fa fa-cubes fa-2x"></i>
                                 <span className="nav-text">
-                                    Logout
+                                    Hyperledger Explorer
                                 </span>
                             </NavLink>
                         </li>
@@ -103,5 +103,4 @@ class OrgsUI extends Component {
         )
     }
 }
-
 export default OrgsUI;

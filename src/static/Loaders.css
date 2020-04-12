@@ -4,7 +4,7 @@
     height: .15em; */
     font-size: 35px;
     margin: 3rem auto 0 auto;
-    
+    color: white;
     background-color: currentcolor;
     border-radius: 100%;
     -webkit-animation: loader-39-1 30s infinite linear;
