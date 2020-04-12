@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import './RegistrationForm.css';
-import './Loaders.css'
+import $ from 'jquery';
+import regForm from './static/regForm.jpg';
+import './static/RegistrationForm.css';
+import './static/Loaders.css';
+import uuid from 'uuid/v4';
 
 class RegistrationForm extends Component {
     constructor(props) {
@@ -20,6 +23,15 @@ class RegistrationForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
         this.handleSetup = this.handleSetup.bind(this);
+    }
+
+    componentDidMount(){
+        var background = 'url(' + regForm + ')';
+        console.log("Inside component did mount")
+        $('body').css('background-image', background);
+        $('body').css('background-position', 'center');
+        $('body').css('background-repeat', 'no-repeat');
+        $('body').css('background-size', 'cover');
     }
 
     handleChange(e) {
@@ -236,7 +248,7 @@ class RegistrationForm extends Component {
                                         {
                                             this.state.message!=="" && this.state.message.split("\n").map( m => {
                                                 return (
-                                                    m!=="" && <div className="message">{m}</div>
+                                                    m!=="" && <div key={uuid()} className="message">{m}</div>
                                                 );
                                             })
                                         }
@@ -244,9 +256,9 @@ class RegistrationForm extends Component {
                                 ) : 
                                 <button className="submit" type="submit">Register Now</button>
                             }
-                        
                     </form>
                 </div>
+                <footer>Photo by Clint Adair on Unsplash</footer> 
             </div>
         );
 
@@ -265,7 +277,7 @@ class RegistrationForm extends Component {
                                 {
                                     this.state.message!=="" && this.state.message.split("\n").map( m => {
                                         return (
-                                            m!=="" && <div className="message">{m}</div>
+                                            m!=="" && <div key={uuid()} className="message">{m}</div>
                                         );
                                     })
                                 }
@@ -274,13 +286,14 @@ class RegistrationForm extends Component {
                         }
                     </form>
                 </div>
+                <footer>Photo by Clint Adair on Unsplash</footer> 
             </div>
         );
 
         return (
             <div> 
                 {/* {setup} */}
-                {this.props.tokens.airport === undefined ? regForm : setup} 
+                {this.props.tokens.airport === undefined ? regForm : setup}
             </div>
         );
     }

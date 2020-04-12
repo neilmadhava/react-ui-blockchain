@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './DeleteUser.css';
-import './Loaders.css';
+import './static/DeleteUser.css';
+import './static/Loaders.css';
 import axios from 'axios';
 
 class DeleteUser extends Component {
@@ -68,7 +68,7 @@ class DeleteUser extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <div className="input-group">
-                                <label for="uid">User ID
+                                <label htmlFor="uid">User ID
                                     <span>*</span>
                                 </label>
                                 <input 

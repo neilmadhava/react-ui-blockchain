@@ -4,13 +4,18 @@ import Airport from './Airport';
 import Users from './Users';
 import CCD from './CCD';
 import MCD from './MCD';
-import './OrgsUI.css';
-// import './OrgsUI-test.css';
+import './static/OrgsUI.css';
 
 class OrgsUI extends Component {
     static defaultProps = {
-        tokens: JSON.parse(window.localStorage.getItem("tokens"))
+        tokens: JSON.parse(window.localStorage.getItem("tokens")) || {
+            airport: "",
+            ccd: "",
+            users: "",
+            mcd: ""
+        }
     }
+
     render() {
         return (
             <div className="OrgsUI">

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './RevokeConsent.css';
-import './Loaders.css';
+import './static/RevokeConsent.css';
+import './static/Loaders.css';
 import axios from 'axios';
 
 class RevokeConsent extends Component {

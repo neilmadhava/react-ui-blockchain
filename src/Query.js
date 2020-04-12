@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import './Query.css';
-import './Loaders.css';
-import uuid from 'uuid/v4'
+import './static/Query.css';
+import './static/Loaders.css';
+import uuid from 'uuid/v4';
 
 
 class Query extends Component {
@@ -85,12 +85,19 @@ class Query extends Component {
                 <div className="form-container">
 
                     <div className="header">
-                        <h1>Query</h1>
+                        <h1>
+                            {
+                                (this.props.command === "querypub" && "Query Public Data") ||
+                                (this.props.command === "querypvt" && "Query Private Data") ||
+                                (this.props.command === "queryall" && "Query Result") ||
+                                (this.props.command === "audit" && "Audit Result")
+                            }
+                        </h1>
                     </div>
 
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <div className="input-group">
+                            <div className="input-group" style={this.props.command==="queryall" ? {display: "none"}: {boxSizing: "border-box"}}>
                                 <label htmlFor="uid">User ID
                                     <span>*</span>
                                 </label>
@@ -108,23 +115,26 @@ class Query extends Component {
                 <div id="popup1" className={this.state.isToggled ? "overlay toggled" : "overlay"}>
                     <div className="popup">
                         <h2>Query Result</h2>
-                        <span className="close" onClick={() => this.setState({isToggled: false})}>&times;</span>
+                        <span className="close" onClick={() => this.setState({isToggled: false, uid: ""})}>&times;</span>
                         <div className="content">
                             {
-                                typeof this.state.content !== 'string' ?
+                                ((typeof this.state.content !== 'string') &&
+                                ((this.props.command === "querypvt")||(this.props.command === "querypub")) &&
                                 (
                                     <table>
                                         <thead>
                                             <tr key={uuid()}>
+                                                <th style={{backgroundColor: "white", border: "0px"}}></th>
                                                 <th>Keys</th>
                                                 <th>Values</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                Object.keys(this.state.content).map( key => {
+                                                Object.keys(this.state.content).map( (key, idx) => {
                                                     return (
                                                         <tr key={uuid()}>
+                                                            <td style={{backgroundColor: "#d6d4d4"}}>{idx+1}</td>
                                                             <td>{key}</td>
                                                             <td>{this.state.content[key]}</td>
                                                         </tr>
@@ -133,8 +143,86 @@ class Query extends Component {
                                             }
                                         </tbody>
                                     </table>
-                                ) :
-                                this.state.content
+                                )) ||
+                                ((typeof this.state.content !== 'string') &&
+                                (this.props.command === "queryall") &&
+                                (
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style={{backgroundColor: "white", border: "0px"}}></th>
+                                                {
+                                                    Object.keys(this.state.content[0].Record).map( key => {
+                                                        return (
+                                                            <th key={key}>{key}</th>
+                                                        );
+                                                    })
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                this.state.content.map( (key, idx) => {
+                                                    return (
+                                                        <tr key={uuid()}>
+                                                            <td style={{backgroundColor: "#d6d4d4"}}>{idx+1}</td>
+                                                            {
+                                                                Object.keys(key.Record).map( k => {
+                                                                    return (
+                                                                        <td>{key.Record[k]}</td>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </tr>
+                                                    )
+                                                })
+                                                
+                                            }
+                                        </tbody>
+                                    </table>
+                                )) || 
+                                ((typeof this.state.content !== 'string') &&
+                                (this.props.command === "audit") &&
+                                (
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style={{backgroundColor: "white", border: "0px"}}></th>
+                                                <th>TxId</th>
+                                                {
+                                                    this.state.content.map(obj => {
+                                                        return (
+                                                            Object.keys(obj.Value).map(key => {
+                                                                return <th key={uuid()}> {key} </th>
+                                                            })
+                                                        )
+                                                    })
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                this.state.content.map( (key, idx) => {
+                                                    return (
+                                                        <tr key={uuid()}>
+                                                            <td style={{backgroundColor: "#d6d4d4"}}>{idx+1}</td>
+                                                            <td>{key.TxId}</td>
+                                                            {
+                                                                Object.keys(key.Value).map( k => {
+                                                                    return (
+                                                                        <td>{key.Value[k]}</td>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </tr>
+                                                    )
+                                                })
+                                                
+                                            }
+                                        </tbody>
+                                    </table>
+                                )) || 
+                                ((typeof this.state.content === 'string') && this.state.content)
                             }
                         </div>
                     </div>

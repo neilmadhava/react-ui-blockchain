@@ -133,14 +133,15 @@ color:#fff;
 background-color:#5fa2db;
 text-decoration: none;
 }
+
 .area {
 float: left;
 margin-left: 60px;
 /* background: #e2e2e2; */
 text-align: center;
 align-self: center;
-width: 100%;
-height: 100%;
+width: -webkit-fill-available;
+width: -moz-available;
 }
 @font-face {
   font-family: 'Titillium Web';
@@ -149,10 +150,11 @@ height: 100%;
   src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 
-.OrgsUI {
-    background-color: #e2e2e2;
-}
-
 .OrgsUI .activeOrg .fa {
   color: green;
+  font-size: 30px;
+}
+
+body,html{
+  height: 100%;
 }

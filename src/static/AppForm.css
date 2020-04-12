@@ -5,18 +5,18 @@
   font-size: 24px;
 }
 
-.DeleteUser {
+.AppForm {
   width: 100%;
-  margin: 1rem auto;
+  margin: 3rem auto;
   padding: 1rem;
   box-sizing: border-box;
 }
-.DeleteUser .form-container {
+.AppForm .form-container {
   width: 100%;
   max-width: 600px;
   background-color: #eeeeee;
   border-radius: 5px;
-  box-shadow: 0px 10px 100px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 20px 5px black;
   box-sizing: border-box;
   margin: 0 auto;
   -webkit-transform: translate(0, 0);
@@ -26,11 +26,11 @@
   transition: transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1);
   transition: transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1), -webkit-transform 800ms cubic-bezier(0.45, -0.46, 0.31, 1);
 }
-.DeleteUser .form-container.applied {
+.AppForm .form-container.applied {
   -webkit-transform: translate(0, -200%);
           transform: translate(0, -200%);
 }
-.DeleteUser .form-container .header {
+.AppForm .form-container .header {
   padding: 2rem;
   box-sizing: border-box;
   background-color: white;
@@ -38,22 +38,22 @@
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
-.DeleteUser .form-container .header h1 {
+.AppForm .form-container .header h1 {
   color: #3498db;
   font-size: 22px;
   font-weight: bolder;
 }
-.DeleteUser .form-container .header p {
+.AppForm .form-container .header p {
   color: #555555;
 }
-.DeleteUser .form-container form {
+.AppForm .form-container form {
   width: 100%;
   position: relative;
   padding: 2rem;
   box-sizing: border-box;
   text-align: center;
 }
-.DeleteUser .form-container form .form-group {
+.AppForm .form-container form .form-group {
   width: 100%;
   position: relative;
   box-sizing: border-box;
@@ -70,21 +70,21 @@
           align-items: flex-start;
   text-align: left;
 }
-.DeleteUser .form-container form .form-group:first-child {
+.AppForm .form-container form .form-group:first-child {
   padding-top: 0;
 }
-.DeleteUser .form-container form .form-group .input-group {
+.AppForm .form-container form .form-group .input-group {
   /* flex-basis: 50%; */
   width: 100%;
   box-sizing: border-box;
 }
-.DeleteUser .form-container form .form-group .input-group:first-child {
+.AppForm .form-container form .form-group .input-group:first-child {
   padding-right: 1rem;
 }
-.DeleteUser .form-container form .form-group .input-group:last-child {
+.AppForm .form-container form .form-group .input-group:last-child {
   padding-left: 1rem;
 }
-.DeleteUser .form-container form .form-group .input-group label {
+.AppForm .form-container form .form-group .input-group label {
   width: 100%;
   margin-bottom: 0.5rem;
   display: inline-block;
@@ -93,10 +93,12 @@
   font-weight: bold;
   font-size: 14px;
 }
-.DeleteUser .form-container form .form-group .input-group label span {
+.AppForm .form-container form .form-group .input-group label span {
   color: #e74c3c;
 }
-.DeleteUser .form-container form .form-group .input-group input {
+.AppForm .form-container form .form-group .input-group input,
+.AppForm .form-container form .form-group .input-group select
+{
   border: none;
   background: none;
   background-color: white;
@@ -111,16 +113,16 @@
   -webkit-transition: border 200ms linear;
   transition: border 200ms linear;
 }
-.DeleteUser .form-container form .form-group .input-group input.error {
+.AppForm .form-container form .form-group .input-group input.error {
   border: 2px #e74c3c solid;
 }
-.DeleteUser .form-container form .form-group .input-group input.success {
+.AppForm .form-container form .form-group .input-group input.success {
   border: 2px #27ae60 solid;
 }
-.DeleteUser .form-container form .form-group .input-group input:focus {
+.AppForm .form-container form .form-group .input-group input:focus {
   outline: none;
 }
-/* .DeleteUser .form-container form button {
+/* .AppForm .form-container form button {
   padding: 1rem 1.5rem;
   background: none;
   border: none;
@@ -136,18 +138,18 @@
   -webkit-transition: all 400ms linear;
   transition: all 400ms linear;
 }
-.DeleteUser .form-container form button:hover {
+.AppForm .form-container form button:hover {
   background-color: #217dbb;
 }
-.DeleteUser .form-container form button.disabled {
+.AppForm .form-container form button.disabled {
   cursor: not-allowed;
   background-color: #b6daf2;
 }
-.DeleteUser .form-container form button.disabled:hover {
+.AppForm .form-container form button.disabled:hover {
   background-color: #b6daf2;
 } */
 
-.DeleteUser .overlay {
+.AppForm .overlay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -158,12 +160,12 @@
   visibility: hidden;
   opacity: 0;
 }
-.DeleteUser .overlay.toggled {
+.AppForm .overlay.toggled {
   visibility: visible;
   opacity: 1;
 }
 
-.DeleteUser .popup {
+.AppForm .popup {
   margin: 70px auto;
   padding: 20px;
   background: #fff;
@@ -173,12 +175,12 @@
   transition: all 5s ease-in-out;
 }
 
-.DeleteUser .popup h2 {
+.AppForm .popup h2 {
   margin-top: 0;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
 }
-.DeleteUser .popup .close {
+.AppForm .popup .close {
   position: absolute;
   top: 20px;
   right: 30px;
@@ -188,37 +190,127 @@
   text-decoration: none;
   color: #333;
 }
-.DeleteUser .popup .close:hover {
+.AppForm .popup .close:hover {
   color: rgb(255, 0, 0);
   cursor: pointer;
 }
-.DeleteUser .popup .content {
+.AppForm .popup .content {
   max-height: 30%;
   overflow: auto;
 }
 
-.DeleteUser .button {
+.AppForm .button {
   padding: 1rem 1.5rem;
   background: none;
   border: none;
   border-radius: 30px;
-  background-color: #ff3b3b;
+  background-color: rgb(4, 173, 75);
   color: white;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: bold;
-  margin: 1rem auto 0 auto;
+  margin: 0.1rem auto 0 auto;
   display: inline-block;
   cursor: pointer;
   -webkit-transition: all 400ms linear;
   transition: all 400ms linear;
 }
-.DeleteUser .button:hover {
-  background-color: red;
+.AppForm .button:hover {
+  background-color: green;
 }
 
 @media screen and (max-width: 700px){
-  .DeleteUser .popup{
+  .AppForm .popup{
     width: 70%;
+  }
+}
+
+.AppForm .loader-39 {
+  /* position: relative;
+  width: .15em;
+  height: .15em; */
+  font-size: 35px;
+  margin: 3rem auto 0 auto;
+  
+  background-color: currentcolor;
+  border-radius: 100%;
+  -webkit-animation: loader-39-1 30s infinite linear;
+          animation: loader-39-1 30s infinite linear;
+}
+.AppForm .loader-39:before, .loader-39:after {
+  content: '';
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.AppForm .loader-39:before {
+  width: .3em;
+  height: 1em;
+  -webkit-animation: loader-39-2 .8s linear infinite;
+          animation: loader-39-2 .8s linear infinite;
+}
+.AppForm .loader-39:after {
+  width: 1em;
+  height: .3em;
+  -webkit-animation: loader-39-2 1.2s linear infinite;
+          animation: loader-39-2 1.2s linear infinite;
+}
+
+@-webkit-keyframes loader-39-1 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-39-1 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader-39-2 {
+  0% {
+    box-shadow: 0.04em -0.04em 0 0.02em currentcolor;
+  }
+  25% {
+    box-shadow: 0.04em 0.04em 0 0.02em currentcolor;
+  }
+  50% {
+    box-shadow: -0.04em 0.04em 0 0.02em currentcolor;
+  }
+  75% {
+    box-shadow: -0.04em -0.04em 0 0.02em currentcolor;
+  }
+  100% {
+    box-shadow: 0.04em -0.04em 0 0.02em currentcolor;
+  }
+}
+@keyframes loader-39-2 {
+  0% {
+    box-shadow: 0.04em -0.04em 0 0.02em currentcolor;
+  }
+  25% {
+    box-shadow: 0.04em 0.04em 0 0.02em currentcolor;
+  }
+  50% {
+    box-shadow: -0.04em 0.04em 0 0.02em currentcolor;
+  }
+  75% {
+    box-shadow: -0.04em -0.04em 0 0.02em currentcolor;
+  }
+  100% {
+    box-shadow: 0.04em -0.04em 0 0.02em currentcolor;
   }
 }

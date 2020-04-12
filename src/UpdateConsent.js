@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './UpdateConsent.css';
-import './Loaders.css';
+import './static/UpdateConsent.css';
+import './static/Loaders.css';
 import axios from 'axios';
 
 class UpdateConsent extends Component {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './AppForm.css';
-import './Loaders.css';
+import './static/AppForm.css';
+import './static/Loaders.css';
 import axios from 'axios';
 
 class AppForm extends Component {

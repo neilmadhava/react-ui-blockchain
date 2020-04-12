@@ -3,7 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import RegistrationForm from './RegistrationForm'; 
 // import OrgsInterface from './OrgsInterface';
 import OrgsUI from './OrgsUI';
-import './App.css';
+import './static/App.css';
 
 class App extends Component {
   constructor(props){
@@ -26,16 +26,18 @@ class App extends Component {
         <Route 
           exact 
           path="/"
+          // component={OrgsInterface}
           render={routeProps => <RegistrationForm {...routeProps} tokens={this.state.tokens} addTokens={this.addTokens} />}
         />
         
         <Route 
           exact 
-          path="/orgs/" 
-          render={routeProps => <OrgsUI 
-            {...routeProps} 
-            // tokens={this.state.tokens} 
-          />}
+          path="/orgs" 
+          component={OrgsUI}
+          // render={routeProps => <OrgsUI 
+          //   {...routeProps} 
+          //   // tokens={this.state.tokens} 
+          // />}
         />
         
         <Route 
