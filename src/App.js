@@ -34,10 +34,6 @@ class App extends Component {
           exact 
           path="/orgs" 
           component={OrgsUI}
-          // render={routeProps => <OrgsUI 
-          //   {...routeProps} 
-          //   // tokens={this.state.tokens} 
-          // />}
         />
         
         <Route 
@@ -46,7 +42,6 @@ class App extends Component {
           render={routeProps => 
             <OrgsUI 
             {...routeProps} 
-            // token={`${routeProps.location.state[routeProps.match.params.org]}`} 
           />} 
         />
       </Switch>

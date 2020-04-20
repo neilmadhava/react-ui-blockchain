@@ -122,7 +122,7 @@ class RegistrationForm extends Component {
         });
         
         this.props.history.push({
-            pathname: '/orgs',
+            pathname: '/orgs/home',
             state: this.state.tokens
           });
     }

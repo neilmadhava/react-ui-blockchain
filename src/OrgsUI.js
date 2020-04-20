@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
+import Home from './Home';
 import Airport from './Airport';
 import Users from './Users';
 import CCD from './CCD';
@@ -20,6 +21,11 @@ class OrgsUI extends Component {
         return (
             <div className="OrgsUI">
                 <div className="area">
+                    {
+                    this.props.match.params.org === "home"
+                    // && <Airport token={this.props.location.state['airport']} />
+                    && <Home history={this.props.history} />
+                }
                     {
                     this.props.match.params.org === "airport"
                     // && <Airport token={this.props.location.state['airport']} />
@@ -43,13 +49,12 @@ class OrgsUI extends Component {
                 <nav className="main-menu">
                     <ul>
                         <li>
-                            <NavLink exact to="/" activeClassName="activeOrg">
+                            <NavLink exact to="/orgs/home" activeClassName="activeOrg">
                                 <i className="fa fa-home fa-2x"></i>
                                 <span className="nav-text">
                                     Dashboard
                                 </span>
                             </NavLink>
-
                         </li>
                         <li className="has-subnav">
                             <NavLink exact to="/orgs/airport" activeClassName="activeOrg">
@@ -90,12 +95,12 @@ class OrgsUI extends Component {
 
                     <ul className="logout">
                         <li>
-                            <NavLink to="http://localhost:8080">
+                            <a href="http://localhost:8080">
                                 <i className="fa fa-cubes fa-2x"></i>
                                 <span className="nav-text">
                                     Hyperledger Explorer
                                 </span>
-                            </NavLink>
+                            </a>
                         </li>
                     </ul>
                 </nav>
